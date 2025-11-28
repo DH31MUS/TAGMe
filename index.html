@@ -11,8 +11,8 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+    <link rel="stylesheet" href="css/styles.css"> 
+    </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
     <div class="bg-white/95 backdrop-blur-sm w-full max-w-md rounded-3xl shadow-2xl overflow-hidden fade-in-up border border-white/20 relative z-10">
@@ -159,6 +159,99 @@
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Lógica del Botón Compartir ---
+            const shareBtn = document.getElementById('shareBtn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', copiarAlPortapapeles);
+            }
+
+            function copiarAlPortapapeles() {
+                const url = window.location.href;
+                copiarTexto(url, "¡Enlace de perfil copiado!");
+            }
+
+            // --- Lógica de la Ventana Modal ---
+            const modal = document.getElementById('infoModal');
+            const triggers = document.querySelectorAll('.contact-trigger');
+            const closeBtn = document.getElementById('closeModalBtn');
+            const overlay = document.getElementById('modalOverlay');
+            
+            const modalTitle = document.getElementById('modalTitle');
+            const modalValue = document.getElementById('modalValue');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalActionBtn = document.getElementById('modalActionBtn');
+
+            // Abrir modal
+            triggers.forEach(button => {
+                button.addEventListener('click', () => {
+                    const type = button.getAttribute('data-type');
+                    const value = button.getAttribute('data-value');
+                    const iconClass = button.getAttribute('data-icon'); 
+                    const actionLink = button.getAttribute('data-action');
+                    const actionText = button.getAttribute('data-action-text');
+
+                    modalTitle.textContent = type;
+                    modalValue.textContent = value;
+                    
+                    // Resetear iconos
+                    modalIcon.className = ''; 
+                    modalIcon.classList.add('fas', iconClass ? iconClass : 'fa-info');
+                    if(iconClass.includes('linkedin')) {
+                        modalIcon.classList.remove('fas');
+                        modalIcon.classList.add('fab');
+                    }
+
+                    modalActionBtn.href = actionLink;
+                    modalActionBtn.textContent = actionText;
+
+                    modal.classList.remove('hidden');
+                });
+            });
+
+            // Cerrar modal
+            function closeModal() {
+                modal.classList.add('hidden');
+            }
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (overlay) overlay.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+
+            // Función global para el onclick del HTML
+            window.copiarDatoModal = function() {
+                const texto = document.getElementById('modalValue').textContent;
+                copiarTexto(texto, "¡Dato copiado al portapapeles!");
+            };
+
+            function copiarTexto(texto, mensajeExito) {
+                const tempInput = document.createElement("input");
+                tempInput.value = texto;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                
+                try {
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(tempInput.value)
+                            .then(() => alert(mensajeExito))
+                            .catch(() => alert("No se pudo copiar"));
+                    } else {
+                        document.execCommand('copy');
+                        alert(mensajeExito);
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
+                document.body.removeChild(tempInput);
+            }
+        });
+    </script>
 </body>
 </html>
