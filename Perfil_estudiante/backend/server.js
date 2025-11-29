@@ -105,3 +105,9 @@ app.get('/api/perfil/:id', async (req, res) => {
         client.release();
     }
 });
+// Definimos el puerto: Usa el que te da Render O usa el 3000 si estás en local
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
+});
