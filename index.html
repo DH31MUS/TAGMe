@@ -151,10 +151,13 @@
             const params = new URLSearchParams(window.location.search);
             const id = params.get('id');
 
-            if (!id) {
-                document.getElementById('loadingMsg').innerHTML = '<p class="text-red-500">Error: No se especificó un ID de usuario.</p>';
-                return;
-            }
+         // AHORA (Con redirección automática)
+if (!id) {
+    // Si no hay ID en la URL, asumimos que es un usuario nuevo
+    // y lo mandamos al formulario de registro inmediatamente.
+    window.location.href = 'registro.html';
+    return;
+}
 
             // 2. Cargar datos del Backend
             try {
