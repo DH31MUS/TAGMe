@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Estudiante</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8 flex justify-center items-center">
+
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-2xl">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Crear Nuevo Perfil</h2>
+        
+        <form id="perfilForm" class="space-y-4">
+            
+          <div class="space-y-2">
+    <h3 class="text-indigo-600 font-semibold border-b pb-1">Datos Personales</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <input type="text" name="nombre_completo" placeholder="Nombre Completo" class="border p-2 rounded w-full" required>
+        <input type="date" name="fecha_nacimiento" class="border p-2 rounded w-full" required>
+        <input type="text" name="telefono" placeholder="Teléfono" class="border p-2 rounded w-full">
+        
+        <input type="url" name="foto_perfil" placeholder="URL Foto de Perfil (https://...)" class="border p-2 rounded w-full">
+    </div>
+</div>
+
+            <div class="space-y-2">
+                <h3 class="text-indigo-600 font-semibold border-b pb-1">Emergencia</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="contacto_emergencia_nombre" placeholder="Nombre Contacto" class="border p-2 rounded w-full">
+                    <input type="text" name="contacto_emergencia_telefono" placeholder="Teléfono Contacto" class="border p-2 rounded w-full">
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="text-indigo-600 font-semibold border-b pb-1">Escuela</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="institucion" placeholder="Institución" class="border p-2 rounded w-full" required>
+                    <input type="text" name="carrera" placeholder="Carrera" class="border p-2 rounded w-full">
+                    <input type="text" name="matricula" placeholder="Matrícula" class="border p-2 rounded w-full">
+                    <input type="number" name="semestre" placeholder="Semestre" class="border p-2 rounded w-full">
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="text-indigo-600 font-semibold border-b pb-1">Contacto Digital</h3>
+                <input type="email" name="correo" placeholder="Correo Electrónico" class="border p-2 rounded w-full" required>
+                <div class="grid grid-cols-3 gap-2">
+                    <input type="text" name="facebook" placeholder="Link Facebook" class="border p-2 rounded w-full">
+                    <input type="text" name="instagram" placeholder="Link Instagram" class="border p-2 rounded w-full">
+                    <input type="text" name="linkedin" placeholder="Link LinkedIn" class="border p-2 rounded w-full">
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="text-indigo-600 font-semibold border-b pb-1">Perfil Profesional</h3>
+                <input type="text" name="ocupacion" placeholder="Ocupación (ej. Desarrollador Web)" class="border p-2 rounded w-full">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="aptitud1" placeholder="Aptitud 1 (ej. Creativo)" class="border p-2 rounded w-full">
+                    <input type="text" name="aptitud2" placeholder="Aptitud 2 (ej. Líder)" class="border p-2 rounded w-full">
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition">Generar Tarjeta</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('perfilForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Guardando...';
+            btn.disabled = true;
+            
+            // Convertir FormData a JSON
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('http://localhost:3000/api/crear-perfil', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // AQUÍ ESTÁ EL CAMBIO: Redirección automática
+                    window.location.href = `index.html?id=${result.id}`;
+                } else {
+                    alert('Error: ' + result.error);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Error de conexión con el servidor (asegúrate de correr "node server.js")');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

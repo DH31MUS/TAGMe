@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de Estudiante - Luis Arjona</title>
-    
+    <title>Perfil de Estudiante</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/styles.css"> 
-    </head>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
-    <div class="bg-white/95 backdrop-blur-sm w-full max-w-md rounded-3xl shadow-2xl overflow-hidden fade-in-up border border-white/20 relative z-10">
+    <div id="mainCard" class="bg-white/95 backdrop-blur-sm w-full max-w-md rounded-3xl shadow-2xl overflow-hidden fade-in-up border border-white/20 relative z-10 hidden">
         
         <div class="h-32 bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 relative">
             <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
@@ -23,20 +19,20 @@
 
         <div class="px-6 relative text-center">
             <div class="relative inline-block">
-                <div class="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden -mt-16 mx-auto bg-gray-200">
-                    <img src="https://scontent.fcjs3-1.fna.fbcdn.net/v/t39.30808-6/453173416_2588772527970410_4896177395447200480_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=NwdHvATg6YQQ7kNvwF1jsE_&_nc_oc=Adm9bCGw9C4r_JywxTg4vttGnft82fJLFLCbBFL2Zw4Zo_IbWGCy5eolyUcBZFb4dxB7vdyRm3r6ixXKUivPMsrp&_nc_zt=23&_nc_ht=scontent.fcjs3-1.fna&_nc_gid=5dmgQYAER223VNOgs_c-fg&oh=00_Afi0EewPU9UBBq_RzTpd-DScLscbFwoyYKsyTAo52nzP3Q&oe=692FB930" 
-                         alt="Foto de Perfil" 
-                         class="w-full h-full object-cover">
-                </div>
+         <div class="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden -mt-16 mx-auto bg-gray-200">
+    <img id="data-foto" 
+         src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=300&auto=format&fit=crop" 
+         alt="Foto de Perfil" class="w-full h-full object-cover">
+</div>
                 <div class="absolute bottom-2 right-2 w-5 h-5 bg-green-500 border-4 border-white rounded-full" title="Disponible"></div>
             </div>
 
             <div class="mt-4">
-                <h1 class="text-2xl font-bold text-gray-800">Luis Arjona</h1>
-                <p class="text-indigo-600 font-medium">Estudiante de Ing. en Sistemas</p>
+                <h1 id="data-nombre" class="text-2xl font-bold text-gray-800">Cargando...</h1>
+                <p id="data-ocupacion" class="text-indigo-600 font-medium">...</p>
                 <div class="mt-2 flex justify-center gap-2">
-                    <span class="px-3 py-1 bg-gray-100 text-xs text-gray-600 rounded-full font-semibold tracking-wide uppercase">Creativo</span>
-                    <span class="px-3 py-1 bg-gray-100 text-xs text-gray-600 rounded-full font-semibold tracking-wide uppercase">Innovador</span>
+                    <span id="data-aptitud1" class="px-3 py-1 bg-gray-100 text-xs text-gray-600 rounded-full font-semibold tracking-wide uppercase">...</span>
+                    <span id="data-aptitud2" class="px-3 py-1 bg-gray-100 text-xs text-gray-600 rounded-full font-semibold tracking-wide uppercase">...</span>
                 </div>
             </div>
         </div>
@@ -46,10 +42,10 @@
             <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                 <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 border-b pb-2">Datos Académicos</h3>
                 <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div><p class="text-gray-400 text-xs">Institución</p><p class="font-semibold text-gray-700">Inst. Tec. de Mérida</p></div>
-                    <div><p class="text-gray-400 text-xs">Matrícula</p><p class="font-semibold text-gray-700">E22080717</p></div>
-                    <div><p class="text-gray-400 text-xs">Carrera</p><p class="font-semibold text-gray-700">Sistemas Comp.</p></div>
-                    <div><p class="text-gray-400 text-xs">Semestre</p><p class="font-semibold text-gray-700">7mo Semestre</p></div>
+                    <div><p class="text-gray-400 text-xs">Institución</p><p id="data-institucion" class="font-semibold text-gray-700">...</p></div>
+                    <div><p class="text-gray-400 text-xs">Matrícula</p><p id="data-matricula" class="font-semibold text-gray-700">...</p></div>
+                    <div><p class="text-gray-400 text-xs">Carrera</p><p id="data-carrera" class="font-semibold text-gray-700">...</p></div>
+                    <div><p class="text-gray-400 text-xs">Semestre</p><p id="data-semestre" class="font-semibold text-gray-700">...</p></div>
                 </div>
             </div>
 
@@ -60,7 +56,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-gray-400">Cumpleaños</p>
-                        <p class="text-sm font-semibold text-gray-700">7 de Noviembre, 2004</p>
+                        <p id="data-nacimiento" class="text-sm font-semibold text-gray-700">...</p>
                     </div>
                 </div>
                 
@@ -70,40 +66,28 @@
                     </div>
                     <div>
                         <p class="text-xs text-gray-400">Contacto de Emergencia</p>
-                        <p class="text-sm font-bold text-gray-800">Pilar Ventura (Madre)</p>
-                        <a href="tel:+529993564122" class="text-xs text-indigo-500 hover:underline">+52 999 356 4122</a>
+                        <p id="data-emergencia-nombre" class="text-sm font-bold text-gray-800">...</p>
+                        <a id="data-emergencia-tel" href="#" class="text-xs text-indigo-500 hover:underline">...</a>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-3 gap-3">
                 
-                <button class="contact-trigger col-span-1 flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 transition-colors group border border-gray-200"
-                    data-type="Correo Electrónico"
-                    data-value="dheimus.0704@gmail.com"
-                    data-icon="fa-envelope"
-                    data-action="mailto:dheimus.0704@gmail.com"
-                    data-action-text="Enviar Correo">
+                <button id="btn-email" class="contact-trigger col-span-1 flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 transition-colors group border border-gray-200"
+                    data-type="Correo Electrónico" data-value="" data-icon="fa-envelope" data-action="" data-action-text="Enviar Correo">
                     <i class="fas fa-envelope text-xl mb-1 text-gray-400 group-hover:text-indigo-500"></i>
                     <span class="text-[10px] font-semibold">Email</span>
                 </button>
 
-                <button class="contact-trigger col-span-1 flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 hover:bg-green-50 hover:text-green-600 transition-colors group border border-gray-200"
-                    data-type="Número Telefónico"
-                    data-value="+52 999 551 5914"
-                    data-icon="fa-phone"
-                    data-action="tel:+529995515914"
-                    data-action-text="Llamar Ahora">
+                <button id="btn-telefono" class="contact-trigger col-span-1 flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 hover:bg-green-50 hover:text-green-600 transition-colors group border border-gray-200"
+                    data-type="Número Telefónico" data-value="" data-icon="fa-phone" data-action="" data-action-text="Llamar Ahora">
                     <i class="fas fa-phone text-xl mb-1 text-gray-400 group-hover:text-green-500"></i>
                     <span class="text-[10px] font-semibold">Llamar</span>
                 </button>
 
-                <button class="contact-trigger col-span-1 flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 hover:bg-blue-50 hover:text-blue-600 transition-colors group border border-gray-200"
-                    data-type="LinkedIn"
-                    data-value="arjona-uc-luis-alberto"
-                    data-icon="fa-linkedin-in"
-                    data-action="https://www.linkedin.com/in/arjona-uc-luis-alberto-79852b34a/"
-                    data-action-text="Ver Perfil">
+                <button id="btn-linkedin" class="contact-trigger col-span-1 flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 hover:bg-blue-50 hover:text-blue-600 transition-colors group border border-gray-200"
+                    data-type="LinkedIn" data-value="" data-icon="fa-linkedin-in" data-action="" data-action-text="Ver Perfil">
                     <i class="fab fa-linkedin-in text-xl mb-1 text-gray-400 group-hover:text-blue-500"></i>
                     <span class="text-[10px] font-semibold">LinkedIn</span>
                 </button>
@@ -112,8 +96,8 @@
             <div class="pt-2 border-t border-gray-100">
                 <p class="text-center text-xs text-gray-400 mb-4">Sígueme en redes sociales</p>
                 <div class="flex justify-center gap-4">
-                    <a href="https://www.facebook.com/luis.arjona.549" target="_blank" class="social-btn w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl hover:bg-blue-700 transition-all"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/l.arjona_07/" target="_blank" class="social-btn w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 text-white flex items-center justify-center text-xl hover:opacity-90 transition-all"><i class="fab fa-instagram"></i></a>
+                    <a id="link-facebook" href="#" target="_blank" class="social-btn w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl hover:bg-blue-700 transition-all"><i class="fab fa-facebook-f"></i></a>
+                    <a id="link-instagram" href="#" target="_blank" class="social-btn w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 text-white flex items-center justify-center text-xl hover:opacity-90 transition-all"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-btn w-12 h-12 rounded-full bg-yellow-400 text-white flex items-center justify-center text-xl hover:bg-yellow-500 transition-all shadow-md"><i class="fab fa-snapchat-ghost"></i></a>
                 </div>
             </div>
@@ -124,14 +108,19 @@
         </div>
     </div>
 
+    <div id="loadingMsg" class="text-center text-gray-500">
+        <i class="fas fa-spinner fa-spin text-3xl mb-2"></i>
+        <p>Cargando perfil...</p>
+    </div>
+
     <div id="infoModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" id="modalOverlay"></div>
         <div class="fixed inset-0 z-10 overflow-y-auto">
             <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm w-full animate-[fadeInUp_0.3s_ease-out]">
+                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm w-full">
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="sm:flex sm:items-start">
-                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10 text-indigo-600 text-xl" id="modalIconContainer">
+                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10 text-indigo-600 text-xl">
                                 <i id="modalIcon" class="fas fa-info"></i>
                             </div>
                             <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
@@ -139,20 +128,16 @@
                                 <div class="mt-2">
                                     <div class="p-3 bg-gray-50 rounded-lg border border-gray-200 flex justify-between items-center group cursor-pointer" onclick="copiarDatoModal()">
                                         <p class="text-sm text-gray-600 font-mono select-all break-all" id="modalValue">valor</p>
-                                        <i class="fas fa-copy text-gray-300 group-hover:text-indigo-500 transition-colors" title="Copiar"></i>
+                                        <i class="fas fa-copy text-gray-300 group-hover:text-indigo-500 transition-colors"></i>
                                     </div>
-                                    <p class="text-xs text-gray-400 mt-2">Haz clic en el texto para copiarlo o usa el botón de abajo.</p>
+                                    <p class="text-xs text-gray-400 mt-2">Haz clic para copiar.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-2">
-                        <a href="#" id="modalActionBtn" target="_blank" class="inline-flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto transition-colors">
-                            Ir a...
-                        </a>
-                        <button type="button" id="closeModalBtn" class="mt-3 inline-flex w-full justify-center rounded-lg bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto transition-colors">
-                            Cerrar
-                        </button>
+                        <a href="#" id="modalActionBtn" target="_blank" class="inline-flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto transition-colors">Ir a...</a>
+                        <button type="button" id="closeModalBtn" class="mt-3 inline-flex w-full justify-center rounded-lg bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto transition-colors">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -160,20 +145,98 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             
-            // --- Lógica del Botón Compartir ---
-            const shareBtn = document.getElementById('shareBtn');
-            if (shareBtn) {
-                shareBtn.addEventListener('click', copiarAlPortapapeles);
+            // 1. Obtener ID de la URL (ej: index.html?id=1)
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            if (!id) {
+                document.getElementById('loadingMsg').innerHTML = '<p class="text-red-500">Error: No se especificó un ID de usuario.</p>';
+                return;
             }
 
-            function copiarAlPortapapeles() {
-                const url = window.location.href;
-                copiarTexto(url, "¡Enlace de perfil copiado!");
+            // 2. Cargar datos del Backend
+            try {
+                const response = await fetch(`http://localhost:3000/api/perfil/${id}`);
+                
+                if (!response.ok) throw new Error('Usuario no encontrado');
+                
+                const data = await response.json();
+                
+                // 3. Rellenar HTML con los datos
+                
+                // Texto Simple
+                setText('data-nombre', data.nombre_completo);
+                setText('data-ocupacion', data.ocupacion || 'Estudiante');
+                setText('data-aptitud1', data.aptitud_1);
+                setText('data-aptitud2', data.aptitud_2);
+                setText('data-institucion', data.institucion);
+                setText('data-matricula', data.matricula);
+                setText('data-carrera', data.carrera);
+                setText('data-semestre', (data.semestre || '?') + 'º Semestre');
+                const imgElement = document.getElementById('data-foto');
+if (data.foto_perfil && data.foto_perfil.trim() !== "") {
+    // Si hay foto en la base de datos, úsala
+    imgElement.src = data.foto_perfil;
+} else {
+    // Si no, usa una imagen genérica por defecto
+    imgElement.src = "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=300&auto=format&fit=crop";
+}
+                // Fecha (Formateada)
+                const fecha = new Date(data.fecha_nacimiento);
+                setText('data-nacimiento', fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }));
+
+                // Emergencia
+                setText('data-emergencia-nombre', data.contacto_emergencia_nombre);
+                const linkEmergencia = document.getElementById('data-emergencia-tel');
+                linkEmergencia.textContent = data.contacto_emergencia_telefono;
+                linkEmergencia.href = `tel:${data.contacto_emergencia_telefono.replace(/\s/g, '')}`;
+
+                // Redes Sociales Footer
+                document.getElementById('link-facebook').href = data.link_facebook || '#';
+                document.getElementById('link-instagram').href = data.link_instagram || '#';
+
+                // --- Configurar Botones del Modal ---
+                
+                // Email
+                setupModalButton('btn-email', data.correo_electronico, `mailto:${data.correo_electronico}`);
+                
+                // Teléfono
+                setupModalButton('btn-telefono', data.telefono, `tel:${data.telefono.replace(/\s/g, '')}`);
+                
+                // LinkedIn
+                setupModalButton('btn-linkedin', data.link_linkedin, data.link_linkedin);
+                
+                // Mostrar tarjeta y ocultar carga
+                document.getElementById('loadingMsg').classList.add('hidden');
+                document.getElementById('mainCard').classList.remove('hidden');
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loadingMsg').innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
             }
 
-            // --- Lógica de la Ventana Modal ---
+            // --- Funciones Auxiliares ---
+
+            function setText(id, text) {
+                const el = document.getElementById(id);
+                if(el) el.textContent = text || 'N/A';
+            }
+
+            function setupModalButton(btnId, value, actionLink) {
+                const btn = document.getElementById(btnId);
+                if (btn && value) {
+                    btn.setAttribute('data-value', value);
+                    btn.setAttribute('data-action', actionLink);
+                } else if (btn) {
+                    // Si no hay dato, deshabilitar botón visualmente
+                    btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    btn.removeAttribute('data-action');
+                }
+            }
+
+            // --- Lógica del Modal (Copiada del ejemplo anterior) ---
             const modal = document.getElementById('infoModal');
             const triggers = document.querySelectorAll('.contact-trigger');
             const closeBtn = document.getElementById('closeModalBtn');
@@ -184,11 +247,12 @@
             const modalIcon = document.getElementById('modalIcon');
             const modalActionBtn = document.getElementById('modalActionBtn');
 
-            // Abrir modal
             triggers.forEach(button => {
                 button.addEventListener('click', () => {
-                    const type = button.getAttribute('data-type');
                     const value = button.getAttribute('data-value');
+                    if(!value) return; // No abrir si está vacío
+
+                    const type = button.getAttribute('data-type');
                     const iconClass = button.getAttribute('data-icon'); 
                     const actionLink = button.getAttribute('data-action');
                     const actionText = button.getAttribute('data-action-text');
@@ -196,7 +260,6 @@
                     modalTitle.textContent = type;
                     modalValue.textContent = value;
                     
-                    // Resetear iconos
                     modalIcon.className = ''; 
                     modalIcon.classList.add('fas', iconClass ? iconClass : 'fa-info');
                     if(iconClass.includes('linkedin')) {
@@ -211,45 +274,36 @@
                 });
             });
 
-            // Cerrar modal
-            function closeModal() {
-                modal.classList.add('hidden');
-            }
-
+            function closeModal() { modal.classList.add('hidden'); }
             if (closeBtn) closeBtn.addEventListener('click', closeModal);
             if (overlay) overlay.addEventListener('click', closeModal);
-
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-                    closeModal();
-                }
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
             });
 
-            // Función global para el onclick del HTML
             window.copiarDatoModal = function() {
                 const texto = document.getElementById('modalValue').textContent;
-                copiarTexto(texto, "¡Dato copiado al portapapeles!");
-            };
-
-            function copiarTexto(texto, mensajeExito) {
                 const tempInput = document.createElement("input");
                 tempInput.value = texto;
                 document.body.appendChild(tempInput);
                 tempInput.select();
-                
-                try {
-                    if (navigator.clipboard) {
-                        navigator.clipboard.writeText(tempInput.value)
-                            .then(() => alert(mensajeExito))
-                            .catch(() => alert("No se pudo copiar"));
-                    } else {
-                        document.execCommand('copy');
-                        alert(mensajeExito);
-                    }
-                } catch (err) {
-                    console.error(err);
-                }
+                document.execCommand('copy');
                 document.body.removeChild(tempInput);
+                alert("¡Copiado!");
+            };
+            
+            // Botón Compartir Perfil
+            const shareBtn = document.getElementById('shareBtn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', () => {
+                    const tempInput = document.createElement("input");
+                    tempInput.value = window.location.href;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    alert("¡Enlace de perfil copiado!");
+                });
             }
         });
     </script>
