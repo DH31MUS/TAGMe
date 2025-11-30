@@ -186,10 +186,20 @@ if (data.foto_perfil && data.foto_perfil.trim() !== "") {
     // Si no, usa una imagen genérica por defecto
     imgElement.src = "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=300&auto=format&fit=crop";
 }
-                // Fecha (Formateada)
-                const fecha = new Date(data.fecha_nacimiento);
-                setText('data-nacimiento', fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }));
+               // Busca esta parte en tu script y REEMPLÁZALA:
 
+if(data.fecha_nacimiento) {
+    const fecha = new Date(data.fecha_nacimiento);
+    
+    // SOLUCIÓN: Agregamos timeZone: 'UTC' a las opciones
+    // Esto le dice al navegador: "No uses mi hora de México, usa la hora Universal"
+    setText('data-nacimiento', fecha.toLocaleDateString('es-ES', { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric',
+        timeZone: 'UTC'  // <--- ESTA ES LA CLAVE MÁGICA
+    }));
+}
                 // Emergencia
                 setText('data-emergencia-nombre', data.contacto_emergencia_nombre);
                 const linkEmergencia = document.getElementById('data-emergencia-tel');
