@@ -1,13 +1,15 @@
-// server.js
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const fs = require('fs');   // <--- Módulo para manejar archivos
+const path = require('path'); // <--- Módulo para manejar rutas
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Configura tu conexión a PostgreSQL (Híbrida: Nube y Local)
 
 const pool = new Pool({
     // Aquí le decimos: "Usa la variable de la nube, o si no hay, usa mi local"
@@ -19,7 +21,12 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL || 'postgresql://tagme_user:1hJHZUnPwnAXMy9Jwhi2HO7SJ0QkyG9Y@dpg-d4ljv0muk2gs738f3vl0-a/tagme',
     ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
-// 1. Endpoint para GUARDAR (POST)
+
+// TU URL BASE (Cambia esto si tu repo de GitHub cambia de nombre)
+// Esto es necesario para armar el link completo
+const BASE_URL_FRONTEND = 'https://dh31mus.github.io/TAGMe'; 
+
+// Endpoint para GUARDAR (POST)
 app.post('/api/crear-perfil', async (req, res) => {
     const client = await pool.connect();
     
@@ -27,14 +34,13 @@ app.post('/api/crear-perfil', async (req, res) => {
         await client.query('BEGIN');
 
         const { 
-            // Agregamos foto_perfil aquí v
             nombre_completo, fecha_nacimiento, telefono, contacto_emergencia_nombre, contacto_emergencia_telefono, foto_perfil,
             institucion, carrera, matricula, semestre,
             correo, facebook, instagram, linkedin,
             ocupacion, aptitud1, aptitud2
         } = req.body;
 
-        // Modificamos el INSERT para incluir la foto ($6)
+        // 1. Insertar Persona
         const resPersona = await client.query(
             `INSERT INTO datos_personales (nombre_completo, fecha_nacimiento, telefono, contacto_emergencia_nombre, contacto_emergencia_telefono, foto_perfil) 
              VALUES ($1, $2, $3, $4, $5, $6) RETURNING id_persona`,
@@ -42,25 +48,49 @@ app.post('/api/crear-perfil', async (req, res) => {
         );
         const idPersona = resPersona.rows[0].id_persona;
 
-        // ... El resto de los INSERTS (escolares, contacto, personalidad) quedan IGUAL que antes ...
-        
+        // 2. Insertar Datos Escolares
         await client.query(
             `INSERT INTO datos_escolares (id_persona, institucion, carrera, matricula, semestre) VALUES ($1, $2, $3, $4, $5)`,
             [idPersona, institucion, carrera, matricula, semestre]
         );
 
+        // 3. Insertar Medios de Contacto
         await client.query(
             `INSERT INTO medios_contacto (id_persona, correo_electronico, link_facebook, link_instagram, link_linkedin) VALUES ($1, $2, $3, $4, $5)`,
             [idPersona, correo, facebook, instagram, linkedin]
         );
 
+        // 4. Insertar Personalidad
         await client.query(
             `INSERT INTO personalidad (id_persona, ocupacion, aptitud_1, aptitud_2) VALUES ($1, $2, $3, $4)`,
             [idPersona, ocupacion, aptitud1, aptitud2]
         );
 
+        // --- NUEVA LÓGICA: URL Y ARCHIVO TXT ---
+
+        // A) Construir la URL completa
+        const urlFinal = `${BASE_URL_FRONTEND}/index.html?id=${idPersona}`;
+
+        // B) Guardar en la Base de Datos (Tabla nueva)
+        await client.query(
+            `INSERT INTO historial_tarjetas (id_persona, url_generada) VALUES ($1, $2)`,
+            [idPersona, urlFinal]
+        );
+
+        // C) Guardar en archivo TXT (Lista numerada usando el ID)
+        const lineaTexto = `${idPersona}. ${urlFinal}\n`; // Ej: "1. https://.../index.html?id=1"
+        const rutaArchivo = path.join(__dirname, 'lista_urls.txt');
+
+        // AppendFile agrega al final sin borrar lo anterior
+        fs.appendFile(rutaArchivo, lineaTexto, (err) => {
+            if (err) console.error("Error al escribir en txt:", err);
+            else console.log("URL guardada en lista_urls.txt");
+        });
+
+        // ----------------------------------------
+
         await client.query('COMMIT');
-        res.status(201).json({ message: 'Perfil creado con éxito', id: idPersona });
+        res.status(201).json({ message: 'Perfil creado con éxito', id: idPersona, url: urlFinal });
 
     } catch (e) {
         await client.query('ROLLBACK');
@@ -71,13 +101,12 @@ app.post('/api/crear-perfil', async (req, res) => {
     }
 });
 
-// 2. Endpoint para LEER (GET)
+// Endpoint para LEER (GET) - Sin cambios, solo lo incluyo para que tengas el archivo completo
 app.get('/api/perfil/:id', async (req, res) => {
     const { id } = req.params;
     const client = await pool.connect();
 
     try {
-        // Agregamos dp.foto_perfil al SELECT
         const query = `
             SELECT 
                 dp.nombre_completo, dp.fecha_nacimiento, dp.telefono, dp.contacto_emergencia_nombre, dp.contacto_emergencia_telefono, dp.foto_perfil,
@@ -90,7 +119,6 @@ app.get('/api/perfil/:id', async (req, res) => {
             LEFT JOIN personalidad p ON dp.id_persona = p.id_persona
             WHERE dp.id_persona = $1
         `;
-        
         const result = await client.query(query, [id]);
 
         if (result.rows.length > 0) {
@@ -105,9 +133,8 @@ app.get('/api/perfil/:id', async (req, res) => {
         client.release();
     }
 });
-// Definimos el puerto: Usa el que te da Render O usa el 3000 si estás en local
-const PORT = process.env.PORT || 3000;
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en puerto ${PORT}`);
 });
