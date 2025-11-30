@@ -2,8 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Estudiante</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f3f4f6; }
+        
+        /* CORRECCIÓN VISUAL DE LA FECHA PARA MÓVILES */
+        input[type="date"] {
+            display: block;
+            -webkit-appearance: none; /* Quita estilo nativo feo de iOS */
+            appearance: none;
+            min-height: 45px; /* Altura mínima para que sea fácil de tocar */
+            background-color: white;
+            color: #374151;
+            padding-right: 10px;
+        }
+        /* Esto fuerza que el placeholder/texto se vea bien */
+        input[type="date"]::before {
+            content: attr(placeholder) !important;
+            color: #aaa;
+            margin-right: 0.5em;
+        }
+        input[type="date"]:focus::before,
+        input[type="date"]:valid::before {
+            content: "";
+        }
+    </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-8 flex justify-center items-center">
 
@@ -12,19 +38,34 @@
         
         <form id="perfilForm" class="space-y-4">
             
-          <div class="space-y-2">
-    <h3 class="text-indigo-600 font-semibold border-b pb-1">Datos Personales</h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <input type="text" name="nombre_completo" placeholder="Nombre Completo" class="border p-2 rounded w-full" required>
-        <input type="date" name="fecha_nacimiento" class="border p-2 rounded w-full" required>
-        <input type="text" name="telefono" placeholder="Teléfono" class="border p-2 rounded w-full">
-        
-        <input type="url" name="foto_perfil" placeholder="URL Foto de Perfil (https://...)" class="border p-2 rounded w-full">
-    </div>
-</div>
+            <div class="space-y-2">
+                <h3 class="text-indigo-600 font-semibold border-b pb-1">Datos Personales</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" name="nombre_completo" placeholder="Nombre Completo" class="border p-2 rounded w-full" required>
+                    
+                    <div class="relative">
+                        <label class="text-xs text-gray-500 absolute -top-2 left-2 bg-white px-1">Fecha Nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" class="border p-2 rounded w-full" required>
+                    </div>
+
+                    <input type="text" name="telefono" placeholder="Teléfono" class="border p-2 rounded w-full">
+                    
+                    <div class="col-span-1 md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Subir Foto de Perfil</label>
+                        <input type="file" name="foto_perfil" accept="image/*" class="block w-full text-sm text-gray-500
+                          file:mr-4 file:py-2 file:px-4
+                          file:rounded-full file:border-0
+                          file:text-sm file:font-semibold
+                          file:bg-indigo-50 file:text-indigo-700
+                          hover:file:bg-indigo-100
+                        "/>
+                    </div>
+                </div>
+            </div>
 
             <div class="space-y-2">
                 <h3 class="text-indigo-600 font-semibold border-b pb-1">Emergencia</h3>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input type="text" name="contacto_emergencia_nombre" placeholder="Nombre Contacto" class="border p-2 rounded w-full">
                     <input type="text" name="contacto_emergencia_telefono" placeholder="Teléfono Contacto" class="border p-2 rounded w-full">
                 </div>
@@ -32,7 +73,7 @@
 
             <div class="space-y-2">
                 <h3 class="text-indigo-600 font-semibold border-b pb-1">Escuela</h3>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <input type="text" name="institucion" placeholder="Institución" class="border p-2 rounded w-full" required>
                     <input type="text" name="carrera" placeholder="Carrera" class="border p-2 rounded w-full">
                     <input type="text" name="matricula" placeholder="Matrícula" class="border p-2 rounded w-full">
@@ -43,7 +84,7 @@
             <div class="space-y-2">
                 <h3 class="text-indigo-600 font-semibold border-b pb-1">Contacto Digital</h3>
                 <input type="email" name="correo" placeholder="Correo Electrónico" class="border p-2 rounded w-full" required>
-                <div class="grid grid-cols-3 gap-2">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                     <input type="text" name="facebook" placeholder="Link Facebook" class="border p-2 rounded w-full">
                     <input type="text" name="instagram" placeholder="Link Instagram" class="border p-2 rounded w-full">
                     <input type="text" name="linkedin" placeholder="Link LinkedIn" class="border p-2 rounded w-full">
@@ -54,8 +95,8 @@
                 <h3 class="text-indigo-600 font-semibold border-b pb-1">Perfil Profesional</h3>
                 <input type="text" name="ocupacion" placeholder="Ocupación (ej. Desarrollador Web)" class="border p-2 rounded w-full">
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="text" name="aptitud1" placeholder="Aptitud 1 (ej. Creativo)" class="border p-2 rounded w-full">
-                    <input type="text" name="aptitud2" placeholder="Aptitud 2 (ej. Líder)" class="border p-2 rounded w-full">
+                    <input type="text" name="aptitud1" placeholder="Aptitud 1" class="border p-2 rounded w-full">
+                    <input type="text" name="aptitud2" placeholder="Aptitud 2" class="border p-2 rounded w-full">
                 </div>
             </div>
 
@@ -69,24 +110,24 @@
             
             const btn = document.getElementById('submitBtn');
             const originalText = btn.innerHTML;
-            btn.innerHTML = 'Guardando...';
+            btn.innerHTML = 'Subiendo Datos...';
             btn.disabled = true;
             
-            // Convertir FormData a JSON
+            // CAMBIO CLAVE: Usamos FormData directo (ya no Object.fromEntries)
+            // Esto permite enviar el archivo binario
             const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData.entries());
 
             try {
+                // CAMBIO CLAVE: Quitamos 'Content-Type': 'application/json'
+                // El navegador pondrá automáticamente el tipo correcto para archivos
                 const response = await fetch('https://tagme-2f7g.onrender.com/api/crear-perfil', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                    body: formData 
                 });
 
                 const result = await response.json();
                 
                 if (response.ok) {
-                    // AQUÍ ESTÁ EL CAMBIO: Redirección automática
                     window.location.href = `index.html?id=${result.id}`;
                 } else {
                     alert('Error: ' + result.error);
@@ -95,7 +136,7 @@
                 }
             } catch (error) {
                 console.error(error);
-                alert('Error de conexión con el servidor (asegúrate de correr "node server.js")');
+                alert('Error de conexión con el servidor');
                 btn.innerHTML = originalText;
                 btn.disabled = false;
             }
