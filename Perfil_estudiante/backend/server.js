@@ -15,7 +15,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'jdbc:postgresql://localhost:5432/postgres/PerfilEstudiante',
+    connectionString: process.env.DATABASE_URL || 'postgresql://localhost:5432/postgres/PerfilEstudiante',
     ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
