@@ -15,10 +15,13 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://tagme_user:1hJHZUnPwnAXMy9Jwhi2HO7SJ0QkyG9Y@dpg-d4ljv0muk2gs738f3vl0-a/tagme',
+    // Reemplaza 'tu_usuario' y 'tu_contraseña' con tus credenciales reales de PostgreSQL
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:1234@localhost:5432/PerfilEstudiantes',
+    
+    // El SSL solo se activa si existe DATABASE_URL (entorno de producción). 
+    // En local (localhost) se mantendrá en false.
     ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
-
 const BASE_URL_FRONTEND = 'https://dh31mus.github.io/TAGMe'; 
 
 // Endpoint GUARDAR (Ahora soporta archivos con upload.single)
