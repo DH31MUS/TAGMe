@@ -14,12 +14,25 @@ app.use(express.json()); // Reemplazo moderno de body-parser
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+const { Pool } = require('pg');
+
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:DH31@localhost:5432/postgres/PerfilEstudiante',
+    // 1. Intentará usar la variable de entorno del servidor si existe.
+    // 2. Si no existe (estás en tu PC), usará tu configuración local.
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:DH31@localhost:5432/PerfilEstudiante',
+    
+    // El SSL debe estar desactivado para conexiones locales de Postgres por defecto
     ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
-const BASE_URL_FRONTEND = 'https://dh31mus.github.io/TAGMe'; 
+// Prueba de conexión inicial (opcional pero recomendada)
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('❌ Error conectando a la base de datos local:', err.stack);
+    } else {
+        console.log('✅ Conexión exitosa a "PerfilEstudiante". Hora del servidor:', res.rows[0].now);
+    }
+});
 
 // Endpoint GUARDAR (Ahora soporta archivos con upload.single)
 app.post('/api/crear-perfil', upload.single('foto_perfil'), async (req, res) => {
