@@ -14,25 +14,12 @@ app.use(express.json()); // Reemplazo moderno de body-parser
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const { Pool } = require('pg');
-
 const pool = new Pool({
-    // 1. Intentará usar la variable de entorno del servidor si existe.
-    // 2. Si no existe (estás en tu PC), usará tu configuración local.
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:DH31@localhost:5432/PerfilEstudiante',
-    
-    // El SSL debe estar desactivado para conexiones locales de Postgres por defecto
+    connectionString: process.env.DATABASE_URL || 'postgresql://tagme_fdr1_user:7RFsW3DfEL3zl81FkYZ7lcGZyWXeC8s1@dpg-d7kdum8sfn5c73877p8g-a.oregon-postgres.render.com/tagme_fdr1',
     ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
-// Prueba de conexión inicial (opcional pero recomendada)
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('❌ Error conectando a la base de datos local:', err.stack);
-    } else {
-        console.log('✅ Conexión exitosa a "PerfilEstudiante". Hora del servidor:', res.rows[0].now);
-    }
-});
+const BASE_URL_FRONTEND = 'https://dh31mus.github.io/TAGMe'; 
 
 // Endpoint GUARDAR (Ahora soporta archivos con upload.single)
 app.post('/api/crear-perfil', upload.single('foto_perfil'), async (req, res) => {
@@ -44,7 +31,7 @@ app.post('/api/crear-perfil', upload.single('foto_perfil'), async (req, res) => 
         // Los datos de texto vienen en req.body
         const { 
             nombre_completo, fecha_nacimiento, telefono, contacto_emergencia_nombre, contacto_emergencia_telefono,
-            institucion, carrera, matricula, semestre,
+            institucion, carrera, matricula, semestre, modalidad, // Añadido 'modalidad'
             correo, facebook, instagram, linkedin,
             ocupacion, aptitud1, aptitud2
         } = req.body;
@@ -71,9 +58,9 @@ app.post('/api/crear-perfil', upload.single('foto_perfil'), async (req, res) => 
         const idPersona = resPersona.rows[0].id_persona;
 
         // INSERTS restantes (Igual que antes)
-        await client.query(
-            `INSERT INTO datos_escolares (id_persona, institucion, carrera, matricula, semestre) VALUES ($1, $2, $3, $4, $5)`,
-            [idPersona, institucion, carrera, matricula, semestre]
+        await client.query( // Modificado para incluir 'modalidad'
+            `INSERT INTO datos_escolares (id_persona, institucion, carrera, matricula, semestre, modalidad) VALUES ($1, $2, $3, $4, $5, $6)`,
+            [idPersona, institucion, carrera, matricula, semestre, modalidad]
         );
 
         await client.query(
@@ -115,7 +102,7 @@ app.get('/api/perfil/:id', async (req, res) => {
         const query = `
             SELECT 
                 dp.nombre_completo, dp.fecha_nacimiento, dp.telefono, dp.contacto_emergencia_nombre, dp.contacto_emergencia_telefono, dp.foto_perfil,
-                de.institucion, de.matricula, de.carrera, de.semestre,
+                de.institucion, de.matricula, de.carrera, de.semestre, de.modalidad, -- Añadido de.modalidad
                 mc.correo_electronico, mc.link_facebook, mc.link_instagram, mc.link_linkedin,
                 p.ocupacion, p.aptitud_1, p.aptitud_2
             FROM datos_personales dp

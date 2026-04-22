@@ -45,7 +45,10 @@
                     <div><p class="text-gray-400 text-xs">Institución</p><p id="data-institucion" class="font-semibold text-gray-700">...</p></div>
                     <div><p class="text-gray-400 text-xs">Matrícula</p><p id="data-matricula" class="font-semibold text-gray-700">...</p></div>
                     <div><p class="text-gray-400 text-xs">Carrera</p><p id="data-carrera" class="font-semibold text-gray-700">...</p></div>
-                    <div><p class="text-gray-400 text-xs">Semestre</p><p id="data-semestre" class="font-semibold text-gray-700">...</p></div>
+                    <div>
+                        <p class="text-gray-400 text-xs">Periodo</p>
+                        <p id="data-semestre-display" class="font-semibold text-gray-700">...</p>
+                    </div>
                 </div>
             </div>
 
@@ -177,7 +180,7 @@ if (!id) {
                 setText('data-institucion', data.institucion);
                 setText('data-matricula', data.matricula);
                 setText('data-carrera', data.carrera);
-                setText('data-semestre', (data.semestre || '?') + 'º Semestre');
+                setText('data-semestre-display', `${data.semestre || '?'}º ${data.modalidad || 'Periodo'}`); // Combinado semestre y modalidad
                 const imgElement = document.getElementById('data-foto');
 if (data.foto_perfil && data.foto_perfil.trim() !== "") {
     // Si hay foto en la base de datos, úsala
@@ -262,7 +265,7 @@ if(data.fecha_nacimiento) {
 
             triggers.forEach(button => {
                 button.addEventListener('click', () => {
-                    const value = button.getAttribute('data-value');
+                    const value = button.getAttribute('data-vcralue');
                     if(!value) return; // No abrir si está vacío
 
                     const type = button.getAttribute('data-type');

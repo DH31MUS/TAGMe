@@ -77,7 +77,27 @@
                     <input type="text" name="institucion" placeholder="Institución" class="border p-2 rounded w-full" required>
                     <input type="text" name="carrera" placeholder="Carrera" class="border p-2 rounded w-full">
                     <input type="text" name="matricula" placeholder="Matrícula" class="border p-2 rounded w-full">
-                    <input type="number" name="semestre" placeholder="Semestre" class="border p-2 rounded w-full">
+                    
+                    <!-- Nuevo select para Modalidad -->
+                    <select name="modalidad" class="border p-2 rounded w-full" required>
+                        <option value="" disabled selected>Selecciona Modalidad</option>
+                        <option value="Semestre">Semestre</option>
+                        <option value="Bimestre">Bimestre</option>
+                        <option value="Cuatrimestre">Cuatrimestre</option>
+                        <option value="Trimestre">Trimestre</option>
+                        <option value="Anual">Anual</option>
+                        <option value="Modular">Modular</option>
+                    </select>
+
+                    <!-- Select modificado para Semestre/Periodo -->
+                    <select name="semestre" class="border p-2 rounded w-full" required>
+                        <option value="" disabled selected>Selecciona Periodo</option>
+                        <script>
+                            for (let i = 1; i <= 13; i++) {
+                                document.write(`<option value="${i}">${i}º Periodo</option>`);
+                            }
+                        </script>
+                    </select>
                 </div>
             </div>
 
