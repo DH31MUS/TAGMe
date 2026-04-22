@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL || 'postgresql://tagme_fdr1_user:7RFsW3DfEL3zl81FkYZ7lcGZyWXeC8s1@dpg-d7kdum8sfn5c73877p8g-a.oregon-postgres.render.com/tagme_fdr1',
-    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+   ssl: { rejectUnauthorized: false }
 });
 
 const BASE_URL_FRONTEND = 'https://dh31mus.github.io/TAGMe'; 
