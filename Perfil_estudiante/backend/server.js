@@ -68,10 +68,13 @@ app.post('/api/crear-perfil', upload.single('foto_perfil'), async (req, res) => 
             [idPersona, correo, facebook, instagram, linkedin]
         );
 
-        await client.query(
-            `INSERT INTO personalidad (id_persona, ocupacion, aptitud_1, aptitud_2) VALUES ($1, $2, $3, $4)`,
-            [idPersona, ocupacion, aptitud1, aptitud2]
-        );
+        // Cambia "description" por "descripcion" (o como lo hayas puesto en DBeaver)
+if (aptitud1) {
+    await client.query(`INSERT INTO aptitudes_persona (id_persona, aptitud_descripcion) VALUES ($1, $2)`, [idPersona, aptitud1]);
+}
+if (aptitud2) {
+    await client.query(`INSERT INTO aptitudes_persona (id_persona, aptitud_descripcion) VALUES ($1, $2)`, [idPersona, aptitud2]);
+}
 
         // Historial y TXT
         const urlFinal = `${BASE_URL_FRONTEND}/index.html?id=${idPersona}`;
